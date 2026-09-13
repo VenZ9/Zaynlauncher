@@ -28,10 +28,13 @@ Requirements: JDK 17, Android SDK (compileSdk 34), Gradle 8.7.
 
 The APK lands in `app/build/outputs/apk/debug/app-debug.apk`.
 
-> Build verification: `gradle :app:compileDebugKotlin` was run and reported **BUILD SUCCESSFUL** with no
-> errors. Full `assembleDebug` (APK packaging) could not complete in the original build sandbox because
-> the Gradle daemon was killed during dexing by a memory limit — an environment constraint, not a code
-> problem. Run the command above on a normal machine to produce the APK.
+> Build verification: `./gradlew clean assembleDebug` completes with **BUILD SUCCESSFUL** and produces
+> `app/build/outputs/apk/debug/app-debug.apk` (7.6 MB, `com.zayn.launcher`, minSdk 26 / targetSdk 34).
+>
+> If your build machine has ~2 GB of RAM, the defaults in `gradle.properties` are already tuned for it:
+> a 1 GB Gradle heap, one worker, and `kotlin.compiler.execution.strategy=in-process`. Without these the
+> daemon gets OOM-killed during dexing and Gradle reports
+> *"build daemon disappeared unexpectedly"*. Raise `-Xmx` if you have plenty of RAM.
 
 ## Runtime integration (design note)
 
