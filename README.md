@@ -28,6 +28,11 @@ Requirements: JDK 17, Android SDK (compileSdk 34), Gradle 8.7.
 
 The APK lands in `app/build/outputs/apk/debug/app-debug.apk`.
 
+> Build verification: `gradle :app:compileDebugKotlin` was run and reported **BUILD SUCCESSFUL** with no
+> errors. Full `assembleDebug` (APK packaging) could not complete in the original build sandbox because
+> the Gradle daemon was killed during dexing by a memory limit — an environment constraint, not a code
+> problem. Run the command above on a normal machine to produce the APK.
+
 ## Runtime integration (design note)
 
 The app is deliberately split so a runtime can be dropped in without redesign:
